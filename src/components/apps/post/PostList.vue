@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import PostItem from 'components/apps/PostItem.vue';
+import PostItem from 'components/apps/post/PostItem.vue';
 import { defineProps } from 'vue';
 
 defineProps({

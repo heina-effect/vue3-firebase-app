@@ -25,7 +25,11 @@
       <q-btn flat icon="more_horiz" round>
         <q-menu>
           <q-list style="min-width: 100px">
-            <q-item v-close-popup clickable>
+            <q-item
+              v-close-popup
+              :to="`/posts/${$route.params.id}/edit`"
+              clickable
+            >
               <q-item-section>수정하기</q-item-section>
             </q-item>
             <q-item v-close-popup clickable>

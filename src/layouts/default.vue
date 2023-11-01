@@ -42,6 +42,21 @@
           unelevated
           @click="openAuthDialog"
         />
+        <q-btn flat round>
+          <q-avatar>
+            <img src="https://cdn.quasar.dev/img/avatar.png" />
+          </q-avatar>
+          <q-menu>
+            <q-list style="min-width: 100px">
+              <q-item v-close-popup clickable to="/mypage/profile">
+                <q-item-section>프로필</q-item-section>
+              </q-item>
+              <q-item v-close-popup clickable>
+                <q-item-section>로그아웃</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-btn>
       </q-toolbar>
     </q-header>
 

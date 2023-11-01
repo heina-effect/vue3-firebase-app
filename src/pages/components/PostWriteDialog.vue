@@ -6,35 +6,12 @@
         <q-btn v-close-popup dense flat icon="close" round />
       </q-toolbar>
       <q-separator />
-      <q-form class="q-pa-md q-gutter-y-sm">
-        <q-input v-model="form.title" outlined placeholder="제목" />
-        <q-select v-model="form.category" :options="categories" outlined>
-          <template v-if="!form.category" #selected>
-            <span class="text-grey-7">카테고리를 선택하세요.</span>
-          </template>
-        </q-select>
-        <q-input
-          v-model="form.content"
-          outlined
-          placeholder="내용을 작성해주세요"
-          type="textarea"
-        />
-        <q-input
-          v-model="tagField"
-          outlined
-          placeholder="태그를 입력해주세요 (입력후 enter)"
-          prefix="#"
-        />
-        <q-chip color="teal" dense outline removable @remove="removeTag"
-          >vuejs
-        </q-chip>
-      </q-form>
+      <PostForm
+        v-model:category="form.category"
+        v-model:content="form.content"
+        v-model:title="form.title"
+      />
       <q-separator />
-
-      <q-card-actions align="right">
-        <q-btn v-close-popup flat label="취소하기" />
-        <q-btn color="primary" flat label="저장하기" type="submit" />
-      </q-card-actions>
     </q-card>
   </q-dialog>
 </template>
@@ -50,17 +27,10 @@ const getInitialForm = () => ({
 </script>
 <script setup>
 import { ref } from 'vue';
-import { getCategories } from 'src/services/category';
-
-const categories = getCategories();
+import PostForm from 'components/apps/post/PostForm.vue';
 
 // form 안에 ref 객체로 넣음
 const form = ref(getInitialForm());
-const tagField = ref('');
-
-const removeTag = () => {
-  console.log('remove tag');
-};
 
 // getInitialForm()을 통해 form 초기화
 const onHide = () => {
