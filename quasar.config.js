@@ -8,7 +8,7 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js
 
-const { configure } = require('quasar/wrappers');
+const {configure} = require('quasar/wrappers');
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -77,7 +77,7 @@ module.exports = configure(function (/* ctx */) {
           'unplugin-vue-router/vite',
           {
             routesFolder: [
-              { src: 'src/pages' },
+              {src: 'src/pages'},
               {
                 src: 'src/docs',
                 path: 'docs/',
@@ -98,7 +98,9 @@ module.exports = configure(function (/* ctx */) {
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
     framework: {
-      config: {},
+      config: {
+        notify: {position: 'top'}
+      },
 
       // iconSet: 'material-icons', // Quasar icon set
       // lang: 'en-US', // Quasar language pack
@@ -111,7 +113,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: [],
+      plugins: ['Notify'],
     },
 
     // animations: 'all', // --- includes all animations
