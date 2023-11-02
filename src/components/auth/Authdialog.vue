@@ -8,8 +8,8 @@
   >
     <q-card :style="{ width: '400px' }">
       <q-card-section class="flex">
-        <q-space />
-        <q-btn v-close-popup dense flat icon="close" round />
+        <q-space/>
+        <q-btn v-close-popup dense flat icon="close" round/>
       </q-card-section>
       <q-card-section class="q-px-xl q-pb-xl">
         <!--        <SignInForm
@@ -25,6 +25,7 @@
         <component
           :is="authViewComponents[viewMode]"
           @change-view="changeViewMode"
+          @close-dialog="closeDialog"
         />
       </q-card-section>
     </q-card>
@@ -32,7 +33,7 @@
 </template>
 
 <script setup>
-import { defineAsyncComponent, ref } from 'vue';
+import {defineAsyncComponent, ref} from 'vue';
 import SignInForm from 'components/auth/SignInForm.vue';
 
 defineProps({
@@ -42,7 +43,7 @@ defineProps({
   },
 });
 
-defineEmits(['update:modelValue']);
+const emit = defineEmits(['update:modelValue']);
 
 const viewMode = ref('SignInForm'); // SignInForm, SignUpForm, FindPasswordForm
 const changeViewMode = mode => (viewMode.value = mode);
@@ -60,6 +61,10 @@ const authViewComponents = {
     import('./FindPasswordForm.vue'),
   ),
 };
+
+const closeDialog = () => {
+  emit('update:modelValue', false);
+}
 </script>
 
 <style lang="scss" scoped></style>
