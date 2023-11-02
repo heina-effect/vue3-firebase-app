@@ -2,8 +2,8 @@
   <div>
     <div class="text-h5 text-center text-weight-bold q-mb-xl">로그인</div>
     <q-form class="q-gutter-y-md">
-      <q-input dense outlined placeholder="이메일" />
-      <q-input dense outlined placeholder="비밀번호" />
+      <q-input dense outlined placeholder="이메일"/>
+      <q-input dense outlined placeholder="비밀번호"/>
 
       <div>
         <q-btn
@@ -30,13 +30,14 @@
             @click="$emit('changeView', 'SignUpForm')"
           />
         </div>
-        <q-separator />
+        <q-separator/>
         <q-btn
           class="full-width"
           color="primary"
           label="구글 계정으로 로그인하기"
           outline
           unelevated
+          @click="handlesignInGoogle"
         />
       </div>
     </q-form>
@@ -44,7 +45,16 @@
 </template>
 
 <script setup>
+import {signInWithGoogle} from "src/services/auth";
+
+
 defineEmits(['changeView']);
+
+// google Login
+const handlesignInGoogle = async () => {
+  await signInWithGoogle();
+
+}
 </script>
 
 <style lang="scss" scoped></style>

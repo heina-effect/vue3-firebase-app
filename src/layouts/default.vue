@@ -5,13 +5,13 @@
         <q-btn dense flat>
           <q-toolbar-title>
             <q-avatar>
-              <img src="/logo.jpg" />
+              <img src="/logo.jpg"/>
             </q-avatar>
             말하는 돌멩이 클럽
           </q-toolbar-title>
         </q-btn>
-        <q-space />
-        <q-btn flat label="Home" stretch to="/home" />
+        <q-space/>
+        <q-btn flat label="Home" stretch to="/home"/>
         <q-btn
           flat
           href="https://google.com"
@@ -34,24 +34,25 @@
           target="_blank"
         />
 
-        <q-separator class="q-my-md q-mr-md" vertical />
+        <q-separator class="q-my-md q-mr-md" vertical/>
         <q-btn
+          v-if="!authStore.isAuthenticated"
           color="primary"
           label="로그인 / 회원가입"
           rounded
           unelevated
           @click="openAuthDialog"
         />
-        <q-btn flat round>
+        <q-btn v-if="authStore.isAuthenticated" flat round>
           <q-avatar>
-            <img src="https://cdn.quasar.dev/img/avatar.png" />
+            <img :src="authStore.user.photoURL"/>
           </q-avatar>
           <q-menu>
             <q-list style="min-width: 100px">
               <q-item v-close-popup clickable to="/mypage/profile">
                 <q-item-section>프로필</q-item-section>
               </q-item>
-              <q-item v-close-popup clickable>
+              <q-item v-close-popup clickable @click="handleLogout">
                 <q-item-section>로그아웃</q-item-section>
               </q-item>
             </q-list>
@@ -61,17 +62,19 @@
     </q-header>
 
     <q-page-container :style="pageContainerStyles">
-      <router-view />
+      <router-view/>
     </q-page-container>
-    <Authdialog v-model="authDialog" />
+    <Authdialog v-model="authDialog"/>
   </q-layout>
 </template>
 <script setup>
-import { useRoute } from 'vue-router';
-import { computed, ref } from 'vue';
-
+import {useRoute} from 'vue-router';
+import {computed, ref} from 'vue';
 import Authdialog from 'components/auth/Authdialog.vue';
+import {useAuthStore} from "stores/auth";
+import {logout} from "src/services/auth";
 
+const authStore = useAuthStore();
 const route = useRoute();
 const pageContainerStyles = computed(() => ({
   maxWidth: '1080px',
@@ -80,5 +83,8 @@ const pageContainerStyles = computed(() => ({
 
 const authDialog = ref(false);
 const openAuthDialog = () => (authDialog.value = true);
+const handleLogout = async () => {
+  await logout();
+}
 </script>
 <style lang="scss" scoped></style>
